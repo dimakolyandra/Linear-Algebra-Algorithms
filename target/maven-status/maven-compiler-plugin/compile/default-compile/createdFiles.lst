@@ -1,0 +1,10 @@
+cm\linearalgebra\classes\TridiagonalMatrix.class
+cm\linearalgebra\classes\Matrix.class
+cm\linearalgebra\classes\Main.class
+cm\linearalgebra\classes\ZeidelMethod.class
+cm\linearalgebra\classes\GaussAlgorithm.class
+cm\linearalgebra\classes\OpenResult.class
+cm\linearalgebra\classes\SimpleIterationMethod.class
+cm\linearalgebra\classes\GaussAlgorithm$Permutation.class
+cm\linearalgebra\interfaces\LinearAlgebraAlgorithm.class
+cm\linearalgebra\classes\SweepMethod.class
