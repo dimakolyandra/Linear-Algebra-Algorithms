@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
+/** QR decomposition of matrix for finding eigen values*/
 public class QR implements LinearAlgebraAlgorithm{
 	
 	@Autowired

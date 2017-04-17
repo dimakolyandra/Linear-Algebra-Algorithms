@@ -9,8 +9,8 @@ import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
 public class Main {
 	
-	private static String fileWithInputData;
-	private static String cmd;
+	private static String fileWithInputData;   // Название файла с входными данными 
+	private static String cmd;                 //
 	private static LinearAlgebraAlgorithm algo;
 	
 	public static String getFileWithInputData() {

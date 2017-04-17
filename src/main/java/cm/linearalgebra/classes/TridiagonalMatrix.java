@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/** Class that implements tridiagonal matrix */
 public class TridiagonalMatrix {
 	protected int n; 
 	protected float[] a;

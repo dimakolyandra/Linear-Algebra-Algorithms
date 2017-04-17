@@ -4,6 +4,11 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Vector;
 
+/**
+ * Class that Implements the representation
+ * of a matrix and operations with it 
+ * @author dimakolyandra
+ */
 public class Matrix {
 	
 	protected int n;
@@ -31,6 +36,8 @@ public class Matrix {
 	public void setMatr(float[][] matr) {
 		this.matr = matr;
 	}
+	
+	/** Copy Matrix B to matrix A */
 	public static void copyMatrix(Matrix A,Matrix B){
 		for(int i = 0; i < B.n; i++){
 			for(int j = 0; j < B.n;j++){
@@ -38,6 +45,8 @@ public class Matrix {
 			}
 		}
 	}
+	
+	/** Print matrix */
 	public void printMatr(){
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
@@ -46,6 +55,8 @@ public class Matrix {
 			System.out.println("");
 		}
 	}
+	
+	/** Read matrix from file */
 	public void readMatrFromFile(Scanner scan){
 		n = scan.nextInt();
 		setMatr(new float[n][n]);
@@ -60,6 +71,8 @@ public class Matrix {
 			e.printStackTrace();
 		}	
 	}
+	
+	/** Print matrix into file */
 	public void printMatr(PrintWriter writer){
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
@@ -68,6 +81,8 @@ public class Matrix {
 			writer.write("\r\n");
 		}
 	}
+	
+	/** Calculates the norm of matrix */
 	public double calcNormMatrix(){
 		double result = 0;
 		for(int i = 0; i < n;i++){
@@ -77,6 +92,8 @@ public class Matrix {
 		}
 		return Math.sqrt(result);
 	}
+	
+	/** Initialize matrix */
 	public void init(){
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
@@ -84,6 +101,8 @@ public class Matrix {
 			}
 		}
 	}
+	
+	/** Calculate difference of two vectors */
 	public static Vector<Float> calcDifferenceVectors(Vector<Float> one, Vector<Float> two){
 		Vector<Float> result = new Vector<Float>();
 		for(int i = 0; i < one.size();i++){
@@ -92,6 +111,8 @@ public class Matrix {
 		}
 		return result;
 	}
+	
+	/** Calculates difference of two matrix */
 	public static Matrix calcDifferenceMatrix(Matrix A, Matrix B){
 		Matrix result = new Matrix(A.n);
 		for(int i = 0; i < A.n;i++){
@@ -101,6 +122,8 @@ public class Matrix {
 		}
 		return result;
 	}
+	
+	/** Calculates norm of the vector */
 	public static double calcNormVector(Vector<Float> vect){
 		double result = 0;
 		for(int i = 0; i < vect.size();i++){
@@ -108,6 +131,8 @@ public class Matrix {
 		}
 		return Math.sqrt(result);
 	}
+	
+	/** Calculates summ of two vectors */
 	public static Vector<Float> sumTwoVectors(Vector<Float> one, Vector<Float> two){
 		Vector<Float> result = new Vector<Float>();
 		for(int i = 0; i < one.size();i++){
@@ -116,6 +141,8 @@ public class Matrix {
 		}
 		return result;
 	}
+	
+	/** Multiplication matrix and vector */
 	public static Vector<Float> multMatrixOnVector(Matrix A, Vector<Float> B){
 		Vector<Float> result = new Vector<Float>();
 		for(int i = 0; i < A.n; i++){
@@ -127,6 +154,8 @@ public class Matrix {
 		}
 		return result;
 	}
+	
+	/** Transpose matrix */
 	public static Matrix transposeMatrix(Matrix A){
 		Matrix transMatr = new Matrix(A.n);
 		for(int i = 0; i < A.n;i++){
@@ -136,6 +165,7 @@ public class Matrix {
 		}
 		return transMatr;
 	}
+	
 	protected void initSingleMatrix(){
 		for(int i = 0; i < this.n;i++){
 			for(int j = 0; j <this.n;j++){
@@ -148,6 +178,8 @@ public class Matrix {
 			}
 		}
 	}
+	
+	/** Scalar multiplication of vectors */
 	public static float scalarMult(Vector<Float> a, Vector<Float> b){
 		float res = 0;
 		for(int i = 0; i < a.size();i++){
@@ -155,6 +187,8 @@ public class Matrix {
 		}
 		return res;
 	}
+	
+	/** Multiplication of a vector by a number */
 	public static void multMatrixOnScal(Matrix A,float k){
 		for(int i = 0; i < A.n;i++){
 			for(int j = 0; j < A.n; j++){
@@ -162,6 +196,8 @@ public class Matrix {
 			}
 		}
 	}
+	
+	/** Multiplication of two matrix  */
 	public static Matrix multiplicationMatrix(Matrix A, Matrix B){
 		Matrix res = new Matrix(A.n);
 		for(int i = 0; i < A.n;i++){

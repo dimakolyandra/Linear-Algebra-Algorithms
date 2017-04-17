@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
+/** Method of simple iteration for solving linear system of equation*/ 
 public class SimpleIterationMethod implements LinearAlgebraAlgorithm{
 	@Autowired
 	@Qualifier("Matrix")

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
+/** Spins method for finding eigen vectors
+ *  and eigen values */
 public class SpinsMethod implements LinearAlgebraAlgorithm{
 	private float eps;
 	private float fi;

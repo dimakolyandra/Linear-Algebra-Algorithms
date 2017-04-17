@@ -10,36 +10,55 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
+/** Gauss algorithm of solving linear system of equation.
+ * 	Implements by LU decomposition.
+ * @author dimakolyandra
+ */
 public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 	
+	/** L-matrix of decomposition */
 	@Autowired
 	@Qualifier("Matrix")
 	private Matrix L;
 
+	/** U-matrix of decomposition */
 	@Autowired
 	@Qualifier("Matrix")
 	private Matrix U;
-		
+	
+	/** Input matrix */
 	@Autowired
 	@Qualifier("Matrix")
 	private Matrix A;
 	
+	/** Inverse matrix for input */
 	@Autowired
 	@Qualifier("Matrix")
 	private Matrix inverse;
 	
+	/** Vector of right parts of linear system */
 	@Autowired
 	@Qualifier("Vect")
 	private Vector<Float> vectValues;
 	
+	/** Vector of solving system */
 	@Autowired
 	@Qualifier("Vect")
 	private Vector<Float> x;
 	
+	/** Vector permute rows */
 	private Permutation[] perm;
+	
+	/** Number of permutation */
 	private int numbPermute;
+	
+	/** Extended matrix of system */
 	private float[][] extendedMatrix;
+	
+	/** Determinant of matrix */
 	private float detA;
+	
+	/** Extended single matrix*/
 	private float[][] extendedSingleMatrix;
 
 	public Matrix getInverse() {
@@ -90,6 +109,14 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		this.detA = detA;
 	}
 	
+	/** Choose leading element and
+	 *  if it is need permute strings
+	 * @param a Index of string
+	 * @param b Index of column
+	 * @param numstr Number of strings
+	 * @param numcol Number of columns
+	 * @param matr Matrix
+	 */
 	private void chooseLeadingElemAndChangeStr(int a,int b,int numstr,int numcol,float[][] matr){
 		int i = a;
 		int j =b;
@@ -107,6 +134,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Adds columns */
 	private void sumColumn(Vector<Float> column,int a,int b,int numcolumn, float[][] matr){
 		int k = 0;
 		for(int j = b; j < numcolumn; j++){
@@ -115,6 +143,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Elementary transformations of matrix */
 	private void elementaryConversion(int a,int b,int numstr,int numcol,float[][]matr,boolean isInverse){
 		for(int i = a; i < numstr - 1; i++){
 			float k =(-matr[i + 1][b])/matr[a][b];
@@ -130,6 +159,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Initialize L-matrix */
 	private void initL(){
 		L.setMatr(new float[A.n][A.n]);
 		L.setN(A.n);
@@ -137,7 +167,8 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 			L.matr[i][i] = 1;
 		}
 	}
-	
+
+	/** Initialize U-matrix */
 	private void initU(){
 		U.setMatr(new float[A.n][A.n]);
 		U.setN(A.n);
@@ -148,6 +179,8 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+
+	/** Permute vector of right parts */
 	private void permuteVectValues(){
 		for(int i = 0; i < numbPermute;i++){
 			Permutation p = perm[i];
@@ -158,6 +191,8 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}	
 	}
 	
+
+	/** Calculate determinant of input Matrix*/
 	private void determinantA(){
 		detA = (float)Math.pow(-1, numbPermute);
 		for(int i = 0; i < A.n;i++){
@@ -165,6 +200,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Find inverse matrix */
 	private void findInverse(){
 		float [][] inv = new float[A.n][A.n];
 		int k = 0;
@@ -184,6 +220,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		inverse.setN(A.n);
 	}
 	
+	/** Gauss algorithm */
 	private void gauss(boolean isInverse, float[][]matr, int numstr,int numcol){
 		for(int i = 0; i < numstr ;i++){
 			chooseLeadingElemAndChangeStr(i,i,numstr,numcol,matr);
@@ -202,6 +239,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Method that rules Gauss algorithm */
 	@Override
 	public void algorithm() {
 		initL();
@@ -210,6 +248,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		printResult();
 	}
 	
+	/** Change strings */
 	private void swapStr(int a,int b,int i,float[][] matr,int numcol){
 		for(int k = b; k < numcol;k++){
 			float tmp = matr[i][k];
@@ -218,6 +257,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Change columns*/
 	private void swapColumn(int a, int b,float[][] matr){
 		for(int k = 0; k < A.n; k++){
 			float tmp = matr[k][a];
@@ -226,6 +266,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Make need permutation in L-matrix */
 	private void permuteL(){
 		for(int i = 0; i < numbPermute;i++){
 			Permutation p = perm[i];
@@ -234,6 +275,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Solve system UX = z */
 	private void solvSystemUX(Vector<Float> z,Vector<Float> X){
 		float xn = (float)z.get(z.size()-1) / U.matr[U.n-1][U.n-1]; 
 		X.setSize(A.n);
@@ -248,6 +290,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Solve system LZ = B */
 	private Vector<Float> solvSystemLZ(Vector<Float> vect){
 		Vector<Float> result = new Vector<Float>();
 		result.add(vect.get(0));
@@ -262,7 +305,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		return result;
  	}
 	
-	
+	/** Print extended matrix */
 	private void printExtended(int numstr, int numcol,float[][] matr){
 		System.out.println("Extended:");
 		for(int i = 0; i < numstr;i++){
@@ -273,6 +316,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Make extended matrix */
 	private void makeExtendedMatrix(){
 		extendedMatrix = new float[A.n][2*A.n];
 		for(int i = 0; i < A.n;i++){
@@ -302,6 +346,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Init array of permutation */
 	public void initPerm(){
 		perm = new Permutation[A.n];
 		numbPermute = 0;
@@ -310,6 +355,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Init object and read input data from file */
 	@Override
 	public void init() {
 		try{
@@ -331,7 +377,8 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 			ex.printStackTrace();
 		}
 	}
-
+	
+	/** Print results into file */
 	@Override
 	public void printResult() {
 		File result = new File("C:\\Users\\User\\Desktop\\result.txt");
@@ -363,6 +410,7 @@ public class GaussAlgorithm implements LinearAlgebraAlgorithm{
 		}
 	}
 	
+	/** Class which store permutation */
 	class Permutation{
 		int x;
 		int y;

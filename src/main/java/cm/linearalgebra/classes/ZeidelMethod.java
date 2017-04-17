@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Required;
 
+/** Zeidel method of solving linear system */
 public class ZeidelMethod extends SimpleIterationMethod{
 	private void calcAandB(Matrix alpha,Matrix B,Matrix C){
 		for(int i=0;i < alpha.n;i++){

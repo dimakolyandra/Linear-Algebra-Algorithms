@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import cm.linearalgebra.interfaces.LinearAlgebraAlgorithm;
 
+/** Sweep method for solving system of linear equation */
 public class SweepMethod implements LinearAlgebraAlgorithm{
 	@Autowired
 	@Qualifier("TridMatr")
