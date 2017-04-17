@@ -69,7 +69,6 @@ public class Main {
 				algo = (QR) context.getBean("qrMeth");
 			}
 			if(cmd.equals("-ga")){
-				System.out.println("!!");
 				algo = (GaussAlgorithm) context.getBean("GaussMeth");		
 			}
 			algo.algorithm();			

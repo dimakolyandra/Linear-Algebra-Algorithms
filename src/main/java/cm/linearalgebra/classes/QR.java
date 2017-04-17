@@ -152,8 +152,7 @@ public class QR implements LinearAlgebraAlgorithm{
 	@Override
 	public void init() {
 		String nameFile = Main.getFileWithInputData();
-		File file = new File("C:\\Users\\User\\Desktop\\inputMatrix5.txt");
-		//File file = new File(nameFile);
+		File file = new File(nameFile);
 		try {
 			Scanner scan = new Scanner(file);
 			A.readMatrFromFile(scan);
